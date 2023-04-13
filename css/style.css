@@ -1,1 +1,146 @@
-/*# sourceMappingURL=style.css.map */
+@font-face {
+  font-family: PontanoSans;
+  src: url(../PontanoSans.ttf);
+}
+* {
+  font-family: PontanoSans, Arial, Helvetica, sans-serif;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+body {
+  background-color: #f6eadb;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #fc8585;
+  padding: 1em;
+  font-size: 2em;
+  color: white;
+  font-weight: 1000;
+  text-align: center;
+}
+
+.nav {
+  display: block;
+  background-color: #fbdba2;
+  padding: 1em;
+}
+.nav h2 {
+  text-align: center;
+  font-size: 1.5em;
+}
+.nav .projects {
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+  align-items: center;
+  background-color: #ffc86d;
+  border-radius: 0.5em;
+}
+.nav .projects p {
+  margin: 0.5em 0;
+  padding: 0 1em;
+}
+.nav .projects button {
+  display: flex;
+  justify-content: center;
+  background-color: none;
+  align-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  font-weight: 1000;
+  margin: 0 1em 0 0;
+}
+.nav .projects button:hover {
+  cursor: pointer;
+}
+.nav button {
+  background-color: #ffc86d;
+  font-weight: 600;
+  width: 100%;
+  display: block;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  border: none;
+  border-radius: 0.5em;
+}
+.nav button:hover {
+  background-color: #ffaf2e;
+  cursor: pointer;
+}
+
+.todoes {
+  display: grid;
+  grid-template-columns: 5vw minmax(auto, 90vw) 5vw;
+  padding: 1em;
+}
+.todoes .wrapper {
+  grid-column: 2/3;
+  text-align: center;
+}
+.todoes h1 {
+  text-align: center;
+  font-size: 1.5em;
+}
+.todoes ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.todoes .add-task {
+  background-color: #85cbd9;
+  border: none;
+  padding: 0.5em 3em;
+  border-radius: 0.5em;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-weight: 600;
+}
+.todoes .add-task:hover {
+  background-color: #44c2db;
+  cursor: pointer;
+}
+.todoes #remove_task1 {
+  align-items: center;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  font-weight: 1000;
+  border: none;
+}
+.todoes #remove_task1:hover {
+  cursor: pointer;
+}
+
+.task {
+  background-color: #ffaf2e;
+  padding: 0 1em;
+  border-radius: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75em;
+}
+.task p {
+  margin: 0.5em;
+}
+
+/* media queries */
+@media only screen and (min-width: 768px) {
+  .main {
+    display: flex;
+  }
+  .todoes {
+    grid-template-columns: 20vw minmax(auto, 60vw) 20vw;
+  }
+  .nav {
+    width: 300px;
+    min-width: 250px;
+    min-height: calc(100vh - 105px);
+  }
+}/*# sourceMappingURL=style.css.map */

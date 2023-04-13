@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,49 @@
     <link rel="stylesheet" href="./css/style.css">
     <title>To Do List</title>
 </head>
+
 <body>
-    
+    <header>TO DO LIST</header>
+    <div class="main">
+        <div class="nav">
+            <button>Inbox</button>
+            <button>Today</button>
+            <button>This week</button>
+            <h2>Projects</h2>
+            <div class="projects">
+                <p>project 1</p>
+                <button>X</button>
+            </div>
+            <button>+ Add Project</button>
+        </div>
+        <div class="todoes">
+            <div class="wrapper">
+                <h1>Inbox</h1>
+                <ul>
+                    <li id="task1">
+                        <div class="task">
+                            <p>title</p>
+                            <div>
+                                <p>date <button id="remove_task1">X</button></p>
+                            </div>
+                        </div>
+                    </li>
+                    <li id="task1">
+                        <div class="task">
+                            <p>title</p>
+                            <div>
+                                <label for="date">Date:</label>
+                                <input type="date" id="date" name="date">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <button class="add-task">Add Task</button>
+            </div>
+        </div>
+    </div>
+
     <script src="./main.js"></script>
 </body>
+
 </html>
