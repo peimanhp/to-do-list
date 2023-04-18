@@ -19,3 +19,20 @@ function cancelSubmit() {
   newTaskInfo.classList.remove("show");
   addTaskBtn.classList.remove("hide");
 }
+
+function getAllTasks() {
+  let tasks = JSON.parse(localStorage.getItem('tasks'));
+  if (!tasks) return tasks = [];
+  else return tasks;
+}
+
+function addTask(title) {
+  let tasks = getAllTasks();
+  let id;
+  if (tasks.length == 0) id = 1;
+  else {
+    id = tasks[tasks.length - 1].id + 1;
+  }
+  tasks.push({ id, title });
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}

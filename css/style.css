@@ -97,7 +97,6 @@ header {
   border: none;
   padding: 0.5em 3em;
   border-radius: 0.5em;
-  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   font-weight: 600;
