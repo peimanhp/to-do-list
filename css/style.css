@@ -92,20 +92,22 @@ header {
   margin: 0;
   padding: 0;
 }
-.todoes .add-task {
+.todoes .add-task-btn {
   background-color: #85cbd9;
   border: none;
   padding: 0.5em 3em;
   border-radius: 0.5em;
+  width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   font-weight: 600;
 }
-.todoes .add-task:hover {
+.todoes .add-task-btn:hover {
   background-color: #44c2db;
   cursor: pointer;
 }
 .todoes #remove_task1 {
+  background-color: rgba(0, 0, 0, 0);
   align-items: center;
   width: 1.5em;
   height: 1.5em;
@@ -115,6 +117,56 @@ header {
 }
 .todoes #remove_task1:hover {
   cursor: pointer;
+}
+
+.add-task-btn.hide {
+  display: none;
+}
+
+#title {
+  border: none;
+  border-radius: 0.5em;
+  margin: 0.5em 0;
+}
+
+#date {
+  border: none;
+  border-radius: 0.5em;
+  margin: 0.5em 0;
+}
+
+.add-cancel-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.add-cancel-buttons button {
+  width: 10em;
+  border: none;
+  border-radius: 0.5em;
+}
+.add-cancel-buttons button:hover {
+  cursor: pointer;
+}
+.add-cancel-buttons .add {
+  background-color: #85cbd9;
+}
+.add-cancel-buttons .add:hover {
+  background-color: #44c2db;
+}
+.add-cancel-buttons .cancel {
+  background-color: #fc8585;
+  color: white;
+}
+.add-cancel-buttons .cancel:hover {
+  background-color: #f86767;
+}
+
+#add_new {
+  display: none;
+}
+
+#add_new.show {
+  display: block;
 }
 
 .task {

@@ -17,11 +17,11 @@
             <button>Today</button>
             <button>This week</button>
             <h2>Projects</h2>
-            <div class="projects">
+            <div id="project_1" class="projects">
                 <p>project 1</p>
                 <button>X</button>
             </div>
-            <button>+ Add Project</button>
+            <button id="add_project">+ Add Project</button>
         </div>
         <div class="todoes">
             <div class="wrapper">
@@ -35,17 +35,24 @@
                             </div>
                         </div>
                     </li>
-                    <li id="task1">
-                        <div class="task">
-                            <p>title</p>
-                            <div>
-                                <label for="date">Date:</label>
-                                <input type="date" id="date" name="date">
-                            </div>
-                        </div>
-                    </li>
                 </ul>
-                <button class="add-task">Add Task</button>
+                <div id="add_new">
+                    <div class="task">
+                        <div>
+                            <label for="title">Title:</label>
+                            <input type="text" id="title" name="title">
+                        </div>
+                        <div>
+                            <label for="date">Date:</label>
+                            <input type="date" id="date" name="date">
+                        </div>
+                    </div>
+                    <div class="add-cancel-buttons">
+                        <button class="add">Add</button>
+                        <button class="cancel">Cancel</button>
+                    </div>
+                </div>
+                <button class="add-task-btn" autofocus>Add Task</button>
             </div>
         </div>
     </div>

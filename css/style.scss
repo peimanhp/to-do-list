@@ -105,7 +105,7 @@ header {
     margin: 0;
     padding: 0;
   }
-  .add-task {
+  .add-task-btn {
     background-color: $addTask;
     border: none;
     padding: 0.5em 3em;
@@ -118,6 +118,7 @@ header {
     }
   }
   #remove_task1 {
+    background-color: rgba(0, 0, 0, 0);
     align-items: center;
     width: 1.5em;
     height: 1.5em;
@@ -128,6 +129,55 @@ header {
       cursor: pointer;
     }
   }
+}
+
+.add-task-btn.hide {
+  display: none;
+}
+
+#title {
+  border: none;
+  border-radius: 0.5em;
+  margin: .5em 0
+}
+
+#date {
+  border: none;
+  border-radius: 0.5em;
+  margin: .5em 0
+}
+
+.add-cancel-buttons {
+  display: flex;
+  justify-content: space-between;
+  button {
+    width: 10em;
+    border: none;
+    border-radius: 0.5em;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  .add {
+    background-color: $addTask;
+    &:hover {
+      background-color: $addTaskHover;
+    }
+  }
+  .cancel {
+    background-color: $headerColor;
+    color: white;
+    &:hover {
+      background-color: $headerColorHover;
+    }
+  }
+}
+
+#add_new {
+  display: none;
+}
+#add_new.show {
+  display: block;
 }
 
 .task {
