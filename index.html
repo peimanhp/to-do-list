@@ -13,19 +13,25 @@
     <header>TO DO LIST</header>
     <div class="main">
         <div class="nav">
-            <button>Inbox</button>
-            <button>Today</button>
-            <button>This week</button>
+            <button id="inbox">Inbox</button>
+            <button id="today">Today</button>
+            <button id="this_week">This week</button>
             <h2>Projects</h2>
-            <div id="project_1" class="projects">
-                <p>project 1</p>
-                <button>X</button>
+            <div class="project-wrapper">
+                <!-- <div id="project_1" class="projects">
+                    <p>project 1</p>
+                    <button id="delete_pro1" class="delete_projects">X</button>
+                </div> -->
+            </div>
+            <div id="project_input" class="">
+                <input type="text" id="project_title" name="project_title">
+                <button class="cancel-typing">X</button>
             </div>
             <button id="add_project">+ Add Project</button>
         </div>
         <div class="todoes">
             <div class="wrapper">
-                <h1>Inbox</h1>
+                <h1 id='folder_title'>Inbox</h1>
                 <ul>
                     <li id="task1">
                         <div class="task">
