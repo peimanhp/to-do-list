@@ -15,7 +15,10 @@ const projectTitle = document.getElementById("project_title");
 const projectWrapper = document.querySelector(".project-wrapper");
 const cancelTyping = document.querySelector(".cancel-typing");
 
+let selectedProjectId = 0;
+
 // Tasks
+
 addTaskBtn.addEventListener("click", addNewTask);
 function addNewTask() {
   newTaskInfo.classList.add("show");
@@ -39,10 +42,41 @@ function cancelSubmit() {
   addTaskBtn.classList.remove("hide");
 }
 
-function getAllTasks() {
-  let tasks = JSON.parse(localStorage.getItem("tasks"));
+function getAllTimeTasks() {
+  let projects = getAllProjects();
+  let tasks = [];
+  for (const project of projects) {
+    let projectId = project.id;
+    projectArray = JSON.parse(localStorage.getItem(projectId));
+    for (let i = 0; i < projectArray.length; i++) {
+      tasks.push(projectArray[i]);
+    }
+  }
+  tasks.sort((a, b) => {
+    const dateA = a.date
+    const dateB = b.date
+    if (dateA < dateB) return 1;    
+    if (dateA > dateB) return -1;    
+    return 0;
+  });
   if (!tasks) return (tasks = []);
   else return tasks;
+}
+
+function getAllTasks() {  
+  let projectId;
+  if (selectedProjectId === undefined) projectId = 0;
+  else projectId = selectedProjectId;  
+  let tasks = JSON.parse(localStorage.getItem(projectId));
+  if (!tasks) return (tasks = []);
+  else return tasks;  
+}
+
+function addTaskHandler() {
+  addTask(taskInput.value, dateInput.value);
+  taskInput.value = "";
+  dateInput.value = '';
+  renderList(getAllTasks());
 }
 
 function addTask(title, date) {
@@ -53,7 +87,7 @@ function addTask(title, date) {
     id = tasks[tasks.length - 1].id + 1;
   }
   tasks.push({ id, title, date });
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  localStorage.setItem(selectedProjectId, JSON.stringify(tasks));
 }
 
 function renderList(tasks) {
@@ -79,13 +113,6 @@ taskInput.addEventListener("keydown", (e) => {
   }
 });
 
-function addTaskHandler() {
-  addTask(taskInput.value, dateInput.value);
-  taskInput.value = "";
-  dateInput.value = "";
-  renderList(getAllTasks());
-}
-
 function deleteTask(id) {
   let tasks = getAllTasks();
   let length = tasks.length;
@@ -106,7 +133,8 @@ list.addEventListener("click", (e) => {
 });
 
 inboxBtn.addEventListener("click", () => {
-  renderList(getAllTasks());
+  folderTitle.innerText = 'Inbox';
+  renderList(getAllTimeTasks());
 });
 
 function getTodayDate() {
@@ -123,8 +151,9 @@ function getTodayDate() {
 todayBtn.addEventListener("click", todayTasks);
 
 function todayTasks() {
+  folderTitle.innerText = "Today";
   let todayDate = getTodayDate();
-  let allTasks = getAllTasks();
+  let allTasks = getAllTimeTasks();
   let todayTasks = allTasks.filter(function (task) {
     return task.date == todayDate;
   });
@@ -146,8 +175,9 @@ function lastWeekDate() {
 thisWeekBtn.addEventListener("click", thisWeekTasks);
 
 function thisWeekTasks() {
+  folderTitle.innerText = "This Week";
   let lastWeek = lastWeekDate();
-  let allTasks = getAllTasks();
+  let allTasks = getAllTimeTasks();
   let thisWeekTasks = allTasks.filter(function (task) {
     return task.date >= lastWeek;
   });
@@ -155,23 +185,6 @@ function thisWeekTasks() {
 }
 
 // projects
-
-function getAllProjects() {
-  let projects = JSON.parse(localStorage.getItem("projects"));
-  if (!projects) return (projects = []);
-  else return projects;
-}
-
-function addProject(title) {
-  let projects = getAllProjects();
-  let id;
-  if (projects.length == 0) id = 1;
-  else {
-    id = projects[projects.length - 1].id + 1;
-  }
-  projects.push({ id, title });
-  localStorage.setItem("projects", JSON.stringify(projects));
-}
 
 addProjectBtn.addEventListener("click", addNewProject);
 function addNewProject() {
@@ -188,10 +201,10 @@ function submitNewProject(e) {
   }
 }
 
-cancelTyping.onclick = () =>{
+cancelTyping.onclick = () => {
   addProjectBtn.classList.remove("hide");
   projectInputBtn.classList.remove("show");
-}
+};
 
 function renderProjects() {
   let projects = getAllProjects();
@@ -199,7 +212,7 @@ function renderProjects() {
   for (const project of projects) {
     html += `
       <div id="${project.id}" class="projects">
-          <p>${project.title}</p>
+          <p class="projects-title">${project.title}</p>
           <button id="delete_pro${project.id}" class="delete_projects">X</button>
       </div>
     `;
@@ -207,10 +220,36 @@ function renderProjects() {
   projectWrapper.innerHTML = html;
 }
 
+function getAllProjects() {
+  let projects = JSON.parse(localStorage.getItem("projects"));
+  if (!projects || projects.length == 0) {
+    projects = [];
+    projects.push({ id: 0, title: "Default" });
+    localStorage.setItem("projects", JSON.stringify(projects));
+    let projectTasks = [];
+    localStorage.setItem(0, JSON.stringify(projectTasks));
+    selectedProjectId = 0;
+    return projects;
+  } else return projects;
+}
+
 function addProjectHandler() {
-  addProject(projectTitle.value);
+  addProject(projectTitle.value);  
   projectTitle.value = "";
   renderProjects();
+  renderList(getAllTasks());
+}
+
+function addProject(title) {
+  let id;
+  let projects = getAllProjects();
+  id = projects[projects.length - 1].id + 1;
+  selectedProjectId = id;
+  projects.push({ id, title });
+  localStorage.setItem("projects", JSON.stringify(projects));
+
+  let projectTasks = [];
+  localStorage.setItem(id, JSON.stringify(projectTasks));
 }
 
 function deleteProject(id) {
@@ -220,6 +259,12 @@ function deleteProject(id) {
     return project.id != id;
   });
   localStorage.setItem("projects", JSON.stringify(projects));
+
+  localStorage.removeItem(id);
+  selectedProjectId = 0;
+  folderTitle.innerText = 'Inbox';
+  renderList(getAllTimeTasks());
+
   return projects.length != length;
 }
 
@@ -229,8 +274,16 @@ projectWrapper.addEventListener("click", (e) => {
     let id = target.id.substr(10);
     deleteProject(id);
     renderProjects();
+  } else if (target.classList.contains("projects")) {
+    selectedProjectId = target.id;
+    folderTitle.innerText = target.children[0].innerText;
+    renderList(getAllTasks());
+  } else if (target.classList.contains("projects-title")) {
+    selectedProjectId = target.parentNode.id;
+    folderTitle.innerText = target.innerText;
+    renderList(getAllTasks());
   }
 });
 
 renderProjects();
-renderList(getAllTasks());
+renderList(getAllTimeTasks());

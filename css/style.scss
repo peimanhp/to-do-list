@@ -55,6 +55,10 @@ header {
     background-color: $navBtn;
     border-radius: 0.5em;
     margin-top: 0.5em;
+    &:hover {
+        background-color: $navBtnHover;
+        cursor: pointer;
+      }
     p {
       margin: 0.5em 0;
       padding: 0 1em;

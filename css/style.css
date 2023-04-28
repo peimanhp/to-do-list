@@ -42,6 +42,10 @@ header {
   border-radius: 0.5em;
   margin-top: 0.5em;
 }
+.nav .projects:hover {
+  background-color: #ffaf2e;
+  cursor: pointer;
+}
 .nav .projects p {
   margin: 0.5em 0;
   padding: 0 1em;
