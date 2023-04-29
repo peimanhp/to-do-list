@@ -53,29 +53,29 @@ function getAllTimeTasks() {
     }
   }
   tasks.sort((a, b) => {
-    const dateA = a.date
-    const dateB = b.date
-    if (dateA < dateB) return 1;    
-    if (dateA > dateB) return -1;    
+    const dateA = a.date;
+    const dateB = b.date;
+    if (dateA < dateB) return 1;
+    if (dateA > dateB) return -1;
     return 0;
   });
   if (!tasks) return (tasks = []);
   else return tasks;
 }
 
-function getAllTasks() {  
+function getAllTasks() {
   let projectId;
   if (selectedProjectId === undefined) projectId = 0;
-  else projectId = selectedProjectId;  
+  else projectId = selectedProjectId;
   let tasks = JSON.parse(localStorage.getItem(projectId));
   if (!tasks) return (tasks = []);
-  else return tasks;  
+  else return tasks;
 }
 
 function addTaskHandler() {
   addTask(taskInput.value, dateInput.value);
   taskInput.value = "";
-  dateInput.value = '';
+  dateInput.value = "";
   renderList(getAllTasks());
 }
 
@@ -113,27 +113,36 @@ taskInput.addEventListener("keydown", (e) => {
   }
 });
 
-function deleteTask(id) {
-  let tasks = getAllTasks();
-  let length = tasks.length;
-  tasks = tasks.filter(function (task) {
-    return task.id != id;
-  });
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-  return tasks.length != length;
+function deleteTask(id, title) {
+  let projects = getAllProjects();
+  let stopFinding = false;
+  for (let i = 0; i < projects.length; i++) {
+    if (stopFinding === true) break;
+    let projectTasks = JSON.parse(localStorage.getItem(projects[i].id));
+    for (let j = 0; j < projectTasks.length; j++) {
+      if (projectTasks[j].id == id && projectTasks[j].title == title) {
+        projectTasks.splice(j, 1);
+        localStorage.setItem(i, JSON.stringify(projectTasks));
+        stopFinding = true;
+        selectedProjectId = i;
+        break;
+      }
+    }
+  }
 }
 
 list.addEventListener("click", (e) => {
   let target = e.target;
   if (target.classList.contains("remove-task-btn")) {
     let id = target.id.substr(11);
-    deleteTask(id);
+    let title = target.parentNode.parentNode.parentNode.children[0].innerText;
+    deleteTask(id, title);
     renderList(getAllTasks());
   }
 });
 
 inboxBtn.addEventListener("click", () => {
-  folderTitle.innerText = 'Inbox';
+  folderTitle.innerText = "Inbox";
   renderList(getAllTimeTasks());
 });
 
@@ -234,7 +243,7 @@ function getAllProjects() {
 }
 
 function addProjectHandler() {
-  addProject(projectTitle.value);  
+  addProject(projectTitle.value);
   projectTitle.value = "";
   renderProjects();
   renderList(getAllTasks());
@@ -262,7 +271,7 @@ function deleteProject(id) {
 
   localStorage.removeItem(id);
   selectedProjectId = 0;
-  folderTitle.innerText = 'Inbox';
+  folderTitle.innerText = "Inbox";
   renderList(getAllTimeTasks());
 
   return projects.length != length;
