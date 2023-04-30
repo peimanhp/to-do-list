@@ -16,7 +16,8 @@ const projectWrapper = document.querySelector(".project-wrapper");
 const cancelTyping = document.querySelector(".cancel-typing");
 
 let selectedProjectId = 0;
-
+let projectsFocused = 'inbox';
+  
 // Tasks
 
 addTaskBtn.addEventListener("click", addNewTask);
@@ -67,6 +68,8 @@ function getAllTasks() {
   let projectId;
   if (selectedProjectId === undefined) projectId = 0;
   else projectId = selectedProjectId;
+  let projects = getAllProjects();
+  folderTitle.innerText = projects[selectedProjectId].title;
   let tasks = JSON.parse(localStorage.getItem(projectId));
   if (!tasks) return (tasks = []);
   else return tasks;
@@ -80,12 +83,12 @@ function addTaskHandler() {
 }
 
 function addTask(title, date) {
-  let tasks = getAllTasks();
-  let id;
-  if (tasks.length == 0) id = 1;
-  else {
-    id = tasks[tasks.length - 1].id + 1;
-  }
+  let tasks = getAllTasks();  
+  let taskId = JSON.parse(localStorage.getItem('taskId'));
+  if (!taskId) taskId = [0];
+  else taskId[0] = taskId[0] + 1;
+  localStorage.setItem('taskId', JSON.stringify(taskId));
+  let id = taskId[0];
   tasks.push({ id, title, date });
   localStorage.setItem(selectedProjectId, JSON.stringify(tasks));
 }
@@ -136,13 +139,17 @@ list.addEventListener("click", (e) => {
   if (target.classList.contains("remove-task-btn")) {
     let id = target.id.substr(11);
     let title = target.parentNode.parentNode.parentNode.children[0].innerText;
-    deleteTask(id, title);
-    renderList(getAllTasks());
+    deleteTask(id, title); 
+    if (projectsFocused === "inbox") renderList(getAllTimeTasks());
+    else if (projectsFocused === "today") todayTasks();
+    else if (projectsFocused === "thisWeek") thisWeekTasks();
+    else renderList(getAllTasks());
   }
 });
 
 inboxBtn.addEventListener("click", () => {
   folderTitle.innerText = "Inbox";
+  projectsFocused = 'inbox';
   renderList(getAllTimeTasks());
 });
 
@@ -160,13 +167,14 @@ function getTodayDate() {
 todayBtn.addEventListener("click", todayTasks);
 
 function todayTasks() {
-  folderTitle.innerText = "Today";
+  projectsFocused = 'today';
   let todayDate = getTodayDate();
   let allTasks = getAllTimeTasks();
   let todayTasks = allTasks.filter(function (task) {
     return task.date == todayDate;
   });
   renderList(todayTasks);
+  folderTitle.innerText = "Today";
 }
 
 function lastWeekDate() {
@@ -184,13 +192,14 @@ function lastWeekDate() {
 thisWeekBtn.addEventListener("click", thisWeekTasks);
 
 function thisWeekTasks() {
-  folderTitle.innerText = "This Week";
+  projectsFocused = 'thisWeek';
   let lastWeek = lastWeekDate();
   let allTasks = getAllTimeTasks();
   let thisWeekTasks = allTasks.filter(function (task) {
     return task.date >= lastWeek;
   });
   renderList(thisWeekTasks);
+  folderTitle.innerText = "This Week";
 }
 
 // projects
@@ -286,10 +295,12 @@ projectWrapper.addEventListener("click", (e) => {
   } else if (target.classList.contains("projects")) {
     selectedProjectId = target.id;
     folderTitle.innerText = target.children[0].innerText;
+    projectsFocused = 'projects';
     renderList(getAllTasks());
   } else if (target.classList.contains("projects-title")) {
     selectedProjectId = target.parentNode.id;
     folderTitle.innerText = target.innerText;
+    projectsFocused = 'projects';
     renderList(getAllTasks());
   }
 });
