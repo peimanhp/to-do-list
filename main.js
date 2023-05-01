@@ -14,6 +14,7 @@ const projectInputBtn = document.getElementById("project_input");
 const projectTitle = document.getElementById("project_title");
 const projectWrapper = document.querySelector(".project-wrapper");
 const cancelTyping = document.querySelector(".cancel-typing");
+const inputRequired = document.querySelector(".input-required");
 
 let selectedProjectId = 0;
 let projectsFocused = 'inbox';
@@ -27,11 +28,18 @@ function addNewTask() {
 }
 
 addBtn.addEventListener("click", submitTask);
-function submitTask() {
-  if (taskInput.value === "" || dateInput.value === "") {
-    alert("You must enter Title and date!");
+
+function submitTask() {  
+  if (taskInput.value == "") {
+    inputRequired.innerText = '* Please enter Title!'
+    inputRequired.classList.add('show');
     return;
-  }
+  } else if (dateInput.value == "") {
+    inputRequired.innerText = "* Please select a Date!";
+      inputRequired.classList.add("show");
+      return;
+    }
+  else inputRequired.classList.remove("show");
   addTaskHandler();
   newTaskInfo.classList.remove("show");
   addTaskBtn.classList.remove("hide");

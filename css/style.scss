@@ -1,11 +1,17 @@
-$headerColor: #fc8585;
+$headerColor: #3A0842;
 $headerColorHover: #f86767;
-$navBtn: #ffc86d;
-$navBtnHover: #ffaf2e;
-$navLight: #fbdba2;
-$mainColor: #f6eadb;
-$addTask: #85cbd9;
-$addTaskHover: #44c2db;
+$navBtn: #A675A1;
+$navBtnHover: #aa52a1;
+$navLight: #F1E4E8;
+$mainColor: #fefae0;
+$addTaskText: white;
+$addTask: #009FFD;
+$addTaskHover: #0090e4;
+$cancelBtn: red;
+$cancelBtnhover: rgb(212, 0, 0);
+$textBtnColors: white;
+$tasksBackground: #A675A1;
+$taskTexts: white;
 
 @font-face {
   font-family: PontanoSans;
@@ -16,7 +22,7 @@ $addTaskHover: #44c2db;
   font-family: PontanoSans, Arial, Helvetica, sans-serif;
   box-sizing: border-box;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 16px;  
 }
 
 @mixin centerize {
@@ -24,8 +30,7 @@ $addTaskHover: #44c2db;
   justify-content: center;
 }
 
-body {
-  background-color: $mainColor;
+body {  
   margin: 0;
   padding: 0;
 }
@@ -34,16 +39,17 @@ header {
   background-color: $headerColor;
   padding: 1em;
   font-size: 2em;
-  color: white;
+  color: $textBtnColors;
   font-weight: 1000;
   text-align: center;
 }
 
-.nav {
+.nav {  
   display: block;
   background-color: $navLight;
   padding: 1em;
   h2 {
+    color: $headerColor;
     text-align: center;
     font-size: 1.5em;
   }
@@ -60,10 +66,11 @@ header {
         cursor: pointer;
       }
     p {
+      color: $textBtnColors;
       margin: 0.5em 0;
       padding: 0 1em;
     }
-    button {
+    button { 
       @include centerize();
       background-color: none;
       align-items: center;
@@ -78,6 +85,7 @@ header {
     }
   }
   button {
+    color: $textBtnColors;
     background-color: $navBtn;
     font-weight: 600;
     width: 100%;
@@ -116,7 +124,7 @@ header {
         cursor: pointer;
       }
     }
-    #project_title {
+    #project_title {      
       max-width: 9em;
       margin: 0.5em 0;
       padding: 0 .5em;
@@ -130,7 +138,9 @@ header {
   }
 }
 
+
 .todoes {
+  color: $taskTexts;
   display: grid;
   grid-template-columns: 5vw minmax(auto, 90vw) 5vw;
   padding: 1em;
@@ -148,18 +158,20 @@ header {
     padding: 0;
   }
   .add-task-btn {
+    color: $addTaskText;
     background-color: $addTask;
     border: none;
     padding: 0.5em 3em;
     border-radius: 0.5em;
     width: fit-content;
-    font-weight: 600;
+    font-weight: 900;
     &:hover {
       background-color: $addTaskHover;
       cursor: pointer;
     }
   }
   .remove-task-btn {
+    color: $taskTexts;
     background-color: rgba(0, 0, 0, 0);
     align-items: center;
     width: 1.5em;
@@ -201,16 +213,19 @@ header {
     }
   }
   .add {
+    font-weight: 1000;
+    color: $textBtnColors;
     background-color: $addTask;
     &:hover {
       background-color: $addTaskHover;
     }
   }
   .cancel {
-    background-color: $headerColor;
+    font-weight: 1000;
+    background-color: $cancelBtn;
     color: white;
     &:hover {
-      background-color: $headerColorHover;
+      background-color: $cancelBtnhover;
     }
   }
 }
@@ -223,17 +238,40 @@ header {
 }
 
 .task {
-  background-color: $navBtnHover;
+  display: flex;
+  justify-content: space-between;  
+  background-color: $tasksBackground;
   padding: 0 1em;
   border-radius: 0.5em;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
   margin-bottom: 0.75em;
   p {
-    margin: 0.5em;
+    margin: 0.5em;  
+}
+}
+
+
+.new-task-wrapper {  
+  background-color: $tasksBackground;
+  padding: 0 1em;
+  border-radius: 0.5em;
+  align-items: center;
+  margin-bottom: 0.75em;
+  .new-task {
+    display: flex;
+    justify-content: space-between;
+  }
+  .input-required {
+    display: none;
+    color: yellow;
+    text-align: left;
+    margin: 0;
+    padding-bottom: .5em;   
   }
 }
+.input-required.show {
+    display: block;      
+  }
 
 /* media queries */
 
