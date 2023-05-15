@@ -36,12 +36,27 @@ body {
 }
 
 header {
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
   background-color: $headerColor;
-  padding: 1em;
-  font-size: 2em;
+  padding: 1em;  
+  text-align: center;
+  h1 {
+    font-size: 2em;
   color: $textBtnColors;
   font-weight: 1000;
-  text-align: center;
+  }
+  button {
+    cursor: pointer;
+    border: none;
+    background-color: $headerColor;
+    width: 40px;
+    height: auto;
+    left: 0;
+    img {
+      filter: invert(99%) sepia(99%) saturate(0%) hue-rotate(257deg) brightness(106%) contrast(100%);
+    }
+  }
 }
 
 .nav {  
@@ -277,6 +292,12 @@ header {
 /* media queries */
 
 @media only screen and (min-width: 768px) {
+  header {
+    display: block;
+    button {
+      display: none;
+    }
+  }
   .main {
     display: flex;
   }
