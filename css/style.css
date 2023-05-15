@@ -39,9 +39,10 @@ header button img {
 }
 
 .nav {
-  display: block;
+  display: none;
   background-color: #F1E4E8;
   padding: 1em;
+  animation: navopen 200ms ease-in-out 0s alternate;
 }
 .nav h2 {
   color: #3A0842;
@@ -132,6 +133,19 @@ header button img {
 }
 .nav #project_input.show {
   display: flex;
+}
+
+@keyframes navopen {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.nav.show {
+  display: block;
 }
 
 .todoes {
@@ -286,6 +300,7 @@ header button img {
     grid-template-columns: 20vw minmax(auto, 60vw) 20vw;
   }
   .nav {
+    display: block;
     width: 300px;
     min-width: 250px;
     min-height: calc(100vh - 105px);

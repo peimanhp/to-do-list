@@ -15,9 +15,16 @@ const projectTitle = document.getElementById("project_title");
 const projectWrapper = document.querySelector(".project-wrapper");
 const cancelTyping = document.querySelector(".cancel-typing");
 const inputRequired = document.querySelector(".input-required");
+const moblieNavIcon = document.getElementById('mobile_nav');
+const nav = document.querySelector('.nav');
 
 let selectedProjectId = 0;
 let projectsFocused = 'inbox';
+
+// mobile nav icon
+moblieNavIcon.addEventListener('click', () => {
+  nav.classList.toggle('show')
+})
   
 // Tasks
 
